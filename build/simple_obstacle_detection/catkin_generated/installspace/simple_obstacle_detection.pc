@@ -1,0 +1,8 @@
+prefix=/home/alice/catkin_ws/install
+
+Name: simple_obstacle_detection
+Description: Description of simple_obstacle_detection
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,24 @@
+<launch>
+  <!--add pacakge T rex vision for tello drone -->
+
+  <group ns="tello">
+    <!-- convert ros h264 CompressedImage to ros Image -->
+    <node pkg="image_transport" type="republish" name="decode_h264" args="h264 in:=image_raw raw out:=image_decompressed"/>
+
+    <!-- detection d'objets -->
+    <node name="depth_map" pkg="simple_obstacle_detection" type="depth_map.py" output="screen">
+      <remap from="image_raw" to="image_decompressed"/>
+    </node>
+
+    <!-- Yolo object Detection -->
+    <node name="yolo" pkg="yolo" type="yolo_ros.py" output="screen"/>
+
+    <!-- Localisation avec ORB SLAM-->
+    <!-- <include file="$(find orb_slam2_ros)/ros/launch/orb_slam.launch"/> -->
+    <!-- <node name="orb_slam_visu" pkg="orb_slam2_ros" type="orb_slam_visu.py" output="screen"/> -->
+
+    <!-- RVIZ -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simple_obstacle_detection)/rviz/test.rviz" output="screen"/> -->
+  </group>
+
+</launch>
